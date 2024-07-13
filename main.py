@@ -20,7 +20,6 @@ import os
 
 load_dotenv()
 
-#TODO: Move this to a dot env file or get it from the command line
 STATIONS_FILENAME = os.getenv('PYSTREAMLIST_STATIONS_FILENAME')
 OUTPUT_PATH = os.getenv('PYSTREAMLIST_OUTPUT_PATH')
 
@@ -29,23 +28,23 @@ def main():
 
 	#TODO: This goes in a try structure
 	with open(STATIONS_FILENAME) as f:
-	    my_stations = yaml.safe_load(f)
+	    stations_loaded = yaml.safe_load(f)
 
-	for station in my_stations:
+	for station in stations_loaded:
 		# fetch station results by uuid
-		result_station = rb.station_by_uuid(station['uuid'])[0]
+		station_result = rb.station_by_uuid(station['uuid'])[0]
 
 		# create a filename for the playlist that will be created, based on the friendly name for this station
 		file_name = createFileName( station['friendly_name'] )
 
 		# output the generated file name to the console
-		print(result_station['name'] + ', Generating playlist: ' + file_name)
+		print(station_result['name'] + ', generating playlist: ' + file_name)
 
 		# open the playlist
 		f = open(OUTPUT_PATH + file_name, 'w')
 
 		# write the stream url to the playlist
-		f.write(result_station['url'])
+		f.write(station_result['url'])
 
 		# close the file handle
 		f.close()
