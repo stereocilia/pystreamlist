@@ -7,6 +7,11 @@ urls updated as they change over time.
 ## Installation  
 
 ```
+# instal prerequisites
+pip install pyradios
+pip install pyyaml
+pip install python-dotenv
+
 # create your own copy of the stations file,
 # then edit to add you favorite stations from radio-browser.info
 cp stations-example.yml stations.yml
